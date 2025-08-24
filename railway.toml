@@ -2,11 +2,5 @@
 builder = "NIXPACKS"
 
 [deploy]
-# jalan setiap start container
-startCommand = """
-php artisan config:cache &&
-php artisan route:cache &&
-php artisan storage:link || true &&
-php artisan migrate --force &&
-php -d variables_order=EGPCS -S 0.0.0.0:${PORT:-8080} -t public
-"""
+# jalankan cache + migrate, lalu start server PHP di port Railway
+startCommand = "php artisan config:cache && php artisan route:cache && php artisan migrate --force && php -S 0.0.0.0:$PORT -t public"
